@@ -29,13 +29,11 @@ class RecentEarthquakes::CLI
       input = gets.strip
 
       if input.to_i > 0 && input.to_i < 16
-        # binding.pry
         i = input.to_i - 1
         puts "\n"
         puts @earthquakes[i].location.colorize(:red)
         puts "======= Magnitude ===== Depth ===== Population ===== Elapsed Time ===== Local Time - Time Standart =======".colorize(:green)
         puts "\n"
-        # puts @earthquakes[i].elapsed_time.colorize(:red).center(20, " ")
         printf("%28s%29s%31s%33s%43s%18s\n", @earthquakes[i].magnitude.colorize(:red), @earthquakes[i].depth.colorize(:red), @earthquakes[i].population.colorize(:red), @earthquakes[i].elapsed_time.colorize(:red), @earthquakes[i].local_time.colorize(:yellow), @earthquakes[i].time_standart.colorize(:yellow))
         puts "\n"
 
