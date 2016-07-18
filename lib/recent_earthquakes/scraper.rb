@@ -2,26 +2,29 @@ require 'pry'
 require 'nokogiri'
 require 'open-uri'
 class Scraper
+@@doc = []
 
   def self.scrape(index_url)
-
     @@doc = Nokogiri::HTML(open(index_url))
-    binding.pry
+    create_new_earthquakes
   end
 
-end
-#index_url = "http://earthquake.usgs.gov/earthquakes/map/"
-# index_url = "http://m.emsc.eu/earthquake/latest.php?min_mag=n/a&max_mag=n/a&date=n/a&euromed=World"
-index_url = "http://m.emsc.eu/earthquake/latest.php"
+  def self.parser
+    (5..61).step(4).to_a.map {|x| @@doc.css('table tr')[x].text.gsub(/[\t\r\n]/,"  ") }
+  end
 
-puts Scraper.scrape(index_url)
-=begin
-arr = []
-count = 5
-10.times do
-  arr << @@doc.css('table tr')[count].text
-  count += 4
+  def self.create_new_earthquakes
+    parser.map do |e|
+      a = e.split(/\s{3,}/)
+      new_earthquake = RecentEarthquakes::Earthquakes.new
+      new_earthquake.location = a[1][28..-1] +", " + a[3].split("/")[0].strip
+      new_earthquake.local_time = a[3].split("/")[2].gsub("local time:", "").strip
+      new_earthquake.magnitude = a[1][23..26]
+      new_earthquake.elapsed_time = a[2].split("D").first # a[2].match(/.*o/).to_s
+      new_earthquake.population = a[3].split("/")[1].gsub("pop:","").strip
+      new_earthquake.depth = a[2][a[2].index("Depth")..-1]
+      new_earthquake.time_standart = a[1].split(" ")[1]
+      new_earthquake.save
+    end
+  end
 end
-=end
-
-(5..45).step(4).to_a.collect {|x| @@doc.css('table tr')[x].text}
