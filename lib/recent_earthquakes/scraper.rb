@@ -1,5 +1,5 @@
 class Scraper
-  
+
   def self.scrape(index_url)
     doc = Nokogiri::HTML(open(index_url).read, nil, 'utf-8') #Nokogiri::HTML.parse(thing, url, encoding, options)
     create_new_earthquakes(doc)
@@ -18,7 +18,7 @@ class Scraper
     parser(doc).map do |e|
       a = e.split(/\s{3,}/)
       new_earthquake = RecentEarthquakes::Earthquake.new
-      new_earthquake.location = (a[1][28..-1] + ", " + a[3].split("/")[0].strip) #.gsub(/[\u0080-\u00ff]/, "") #.gsub("\\u","")
+      new_earthquake.location = (a[1][28..-1] + ", " + a[3].split("/")[0].strip)
       new_earthquake.local_time = a[3].split("/")[2].gsub("local time:", "").strip
       new_earthquake.magnitude = a[1][23..26]
       new_earthquake.elapsed_time = a[2].split(/[FD]/).first # a[2].match(/.*o/).to_s
