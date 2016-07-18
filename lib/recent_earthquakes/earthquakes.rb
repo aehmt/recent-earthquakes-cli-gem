@@ -1,4 +1,4 @@
-class RecentEarthquakes::Earthquakes
+class RecentEarthquakes::Earthquake
   attr_accessor :location, :local_time, :magnitude, :elapsed_time, :population, :depth, :time_standart
   @@earthquakes = []
 
@@ -6,13 +6,9 @@ class RecentEarthquakes::Earthquakes
     @@earthquakes
   end
 
-  def self.scrape_earthquakes
-    index_url = "http://m.emsc.eu/earthquake/latest.php"
-    Scraper.scrape(index_url)
-  end
-
   def save
     @@earthquakes << self
+    self
   end
 end
 

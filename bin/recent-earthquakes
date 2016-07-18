@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
+
 require './lib/recent_earthquakes'
 RecentEarthquakes::CLI.new.call 
