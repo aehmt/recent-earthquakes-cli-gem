@@ -1,6 +1,5 @@
 class Scraper
-# @@doc = []
-
+  
   def self.scrape(index_url)
     doc = Nokogiri::HTML(open(index_url).read, nil, 'utf-8') #Nokogiri::HTML.parse(thing, url, encoding, options)
     create_new_earthquakes(doc)

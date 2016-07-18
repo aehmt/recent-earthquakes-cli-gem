@@ -1,7 +1,4 @@
-#CLI Controller
-require 'colorize'
-
-class RecentEarthquakes::CLI
+class RecentEarthquakes::CLI #CLI Controller
 
   def call
     system("clear")
@@ -36,7 +33,6 @@ class RecentEarthquakes::CLI
         puts "\n"
         printf("%28s%29s%31s%33s%43s%18s\n", @earthquakes[i].magnitude.colorize(:red), @earthquakes[i].depth.colorize(:red), @earthquakes[i].population.colorize(:red), @earthquakes[i].elapsed_time.colorize(:red), @earthquakes[i].local_time.colorize(:yellow), @earthquakes[i].time_standart.colorize(:yellow))
         puts "\n"
-
       elsif input == "list"
         system("clear")
         list_recent_earthquakes
@@ -51,5 +47,4 @@ class RecentEarthquakes::CLI
   def goodbye
     puts "Goodbye"
   end
-
 end
