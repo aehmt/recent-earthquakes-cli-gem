@@ -6,10 +6,12 @@ class RecentEarthquakes::Earthquake
     @@earthquakes
   end
 
+  def self.clear
+    @@earthquakes.clear
+  end
+
   def save
     @@earthquakes << self
     self
   end
 end
-
-
