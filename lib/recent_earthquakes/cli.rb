@@ -26,11 +26,11 @@ class RecentEarthquakes::CLI #CLI Controller
 
       if input.to_i > 0 && input.to_i < 16
         i = input.to_i - 1
-        puts "\n"
+        puts ""
         puts @earthquakes[i].location.colorize(:red)
-        puts "======= Magnitude ===== Depth ===== Population ===== Elapsed Time ===== Local Time - Time Standart =======\n".colorize(:green)
+        puts "======= Magnitude ===== Depth ===== Population ===== Elapsed Time ===== Local Time/Date - Time Standart ==\n".colorize(:green)
         printf("%28s%29s%31s%33s%43s%18s\n", @earthquakes[i].magnitude.colorize(:red), @earthquakes[i].depth.colorize(:red), @earthquakes[i].population.colorize(:red), @earthquakes[i].elapsed_time.colorize(:red), @earthquakes[i].local_time.colorize(:yellow), @earthquakes[i].time_standart.colorize(:yellow))
-        puts "\n"
+        puts ""
       elsif input == "list"
         RecentEarthquakes::Earthquake.clear
         list_recent_earthquakes
