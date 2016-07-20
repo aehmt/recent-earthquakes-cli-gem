@@ -12,7 +12,7 @@ class Scraper
 
 
   def self.parser(doc)
-    (5..61).step(4).to_a.map {|x| doc.css('table tr')[x].text.gsub(/[\t\r\n]/,"  ")}
+    (5..81).step(4).to_a.map {|x| doc.css('table tr')[x].text.gsub(/[\t\r\n]/,"  ")}
   end
 
   def self.create_new_earthquakes(doc)
