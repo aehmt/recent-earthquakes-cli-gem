@@ -19,14 +19,7 @@ class Scraper
     parser(doc).map do |e|
       a = e.split(/\s{3,}/)
       new_earthquake = RecentEarthquakes::Earthquake.new
-      new_earthquake.location = (a[1][28..-1] + ", " + a[3].split("/")[0].strip)
-      new_earthquake.local_time = a[3].split("/")[2].gsub("local time:", "").strip
-      new_earthquake.magnitude = a[1][23..26]
-      new_earthquake.elapsed_time = a[2].split(/[FD]/).first # a[2].match(/.*o/).to_s
-      new_earthquake.population = a[3].split("/")[1].gsub("pop:","").strip
-      new_earthquake.depth = a[2][a[2].index(":")..-1].gsub(":", "")
-      new_earthquake.time_standart = a[1].split(" ")[1]
-      new_earthquake.save
+      new_earthquake.create(a)
     end
   end
 end
